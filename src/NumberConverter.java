@@ -17,6 +17,8 @@ public class NumberConverter {
         this.base = base;
     }
 
+    //Use only this constructor: in decimal format method deal with it. Use decimal value as 'base' value in all other
+    //methods by updating the val instance variable. Research if radix actually works!
     public NumberConverter(String number, int base)
     {
         //second constructor because the number could include letters
