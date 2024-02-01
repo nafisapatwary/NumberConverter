@@ -4,6 +4,7 @@ public class NumberConverter {
     int[] digits;
     String[] hexDigits;
     int base;
+    int val = 0;
 
     public NumberConverter(int number, int base) {
         String numberAsString = Integer.toString(number);
@@ -56,38 +57,47 @@ public class NumberConverter {
     }
 
     public int[] convertToDecimal() {
-        int val = 0;
-        if (base == 16)
+        for (int i = 0; i < digits.length; i++)
         {
-            String stringNum = convertArrayToString(hexDigits);
-            //i just found out that radix means the base of a number system so this is a lot less work than
-            //checking for letters and assigning their values based on what letter it is
-            val = Integer.parseInt(stringNum, 16);
+            val += digits[i] * Math.pow(base, digits.length - 1 - i);
         }
-        else
+        String str = Integer.toString(val);
+        int[] decArray = new int[str.length()];
+        for (int i = 0; i < str.length(); i++)
         {
-            int pow = 0;
-            for (int i = digits.length - 1; i >= 0; i--)
-            {
-                //converting each digit to its decimal value by raising it to the power of the base it's
-                //associated with (based on place value)
-                val += digits[i] * Math.pow(base, pow);
-                pow++;
-            }
+            decArray[i] = Character.getNumericValue(str.charAt(i));
         }
-        String decVal = Integer.toString(val);
-        //converting to array
-        int[] decArray = new int[decVal.length()];
-        for (int i = 0; i < decArray.length; i++)
-        {
-            decArray[i] = Character.getNumericValue(decVal.charAt(i));
-        }
+//        if (base == 16)
+//        {
+//            String stringNum = convertArrayToString(hexDigits);
+//            //i just found out that radix means the base of a number system so this is a lot less work than
+//            //checking for letters and assigning their values based on what letter it is
+//            val = Integer.parseInt(stringNum, 16);
+//        }
+//        else
+//        {
+//            int pow = 0;
+//            for (int i = digits.length - 1; i >= 0; i--)
+//            {
+//                //converting each digit to its decimal value by raising it to the power of the base it's
+//                //associated with (based on place value)
+//                val += digits[i] * Math.pow(base, pow);
+//                pow++;
+//            }
+//        }
+//        String decVal = Integer.toString(val);
+//        //converting to array
+//        int[] decArray = new int[decVal.length()];
+//        for (int i = 0; i < decArray.length; i++)
+//        {
+//            decArray[i] = Character.getNumericValue(decVal.charAt(i));
+//        }
         return decArray;
     }
 
     public int[] convertToBinary() {
-        int[] temp = convertToDecimal();
-        int decNum = convertArrayToNum(temp);
+//        int[] temp = convertToDecimal();
+        int decNum = val;
         String binary = "";
         if (decNum == 0) {
             return new int[]{0};
@@ -111,8 +121,8 @@ public class NumberConverter {
     }
 
     public int[] convertToOctal() {
-        int[] temp = convertToDecimal();
-        int decNum = convertArrayToNum(temp);
+//        int[] temp = convertToDecimal();
+        int decNum = val;
         if (decNum == 0) {
             return new int[]{0};
         }
@@ -133,8 +143,8 @@ public class NumberConverter {
     }
 
     public String[] convertToHex(){
-        int[] temp = convertToDecimal();
-        int decNum = convertArrayToNum(temp);
+//        int[] temp = convertToDecimal();
+        int decNum = val;
         if (decNum == 0) {
             return new String[]{"0"};
         }
@@ -179,6 +189,32 @@ public class NumberConverter {
             decNum /= 16;
         }
         return hexArray;
+    }
+
+    public String[] customBase(int num, int chosenBase)
+    {
+        String characters = "01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/";
+        String number = "";
+        if (chosenBase == 1)
+        {
+            for (int i = 0; i< num; i++)
+            {
+                number += "1";
+            }
+        }
+
+        else
+        {
+            int r = num % chosenBase;
+            number = characters.charAt(r) + number;
+        }
+
+        String[] customBaseDigits = new String[number.length()];
+        for (int i = 0; i < customBaseDigits.length; i++)
+        {
+            customBaseDigits[i] = number.charAt(i) + "";
+        }
+        return customBaseDigits;
     }
 
     public int convertArrayToNum(int[] digits)
