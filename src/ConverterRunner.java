@@ -52,18 +52,20 @@ class ConverterRunner {
         }
 
         else {
-            NumberConverter nc = null;
-            if (base == 16)
-            {
-                nc = new NumberConverter(number, base);
-                System.out.println("Original Number: " + nc.displayOriginalHexNumber());
-            }
-            else
-            {
-                int n = Integer.parseInt(number);
-                nc = new NumberConverter(n, base);
-                System.out.println("Original Number: " + nc.displayOriginalNumber());
-            }
+//            NumberConverter nc = new NumberConverter(number, base);
+            NumberConverter nc = new NumberConverter(number, base);
+
+//            if (base == 16)
+//            {
+//                nc = new NumberConverter(number, base);
+//                System.out.println("Original Number: " + nc.displayOriginalHexNumber());
+//            }
+//            else
+//            {
+//                int n = Integer.parseInt(number);
+//                nc = new NumberConverter(n, base);
+//                System.out.println("Original Number: " + nc.displayOriginalNumber());
+//            }
             s.close();
             System.out.println("Decimal Val: " + nc.convertArrayToString(nc.convertToDecimal()));
             System.out.println("Binary Val: " + nc.convertArrayToString(nc.convertToBinary()));
