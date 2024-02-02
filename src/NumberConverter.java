@@ -3,7 +3,7 @@ public class NumberConverter {
     private int base;
     private String[] digits;
     private int decVal = 0;
-    
+
     public NumberConverter(String number, int base)
     {
         digits = new String[number.length()];
@@ -30,7 +30,7 @@ public class NumberConverter {
     public String[] getDigits() {
         return digits;
     }
-    
+
     public int[] convertToDecimal() {
         if (base == 16) {
             String num = "";
@@ -138,6 +138,10 @@ public class NumberConverter {
             for (int i = 0; i < num; i++) {
                 number += "1";
             }
+        }
+        else if (num == 0)
+        {
+            number = "0";
         }
         else {
             while (num > 0) {
