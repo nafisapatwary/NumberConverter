@@ -18,10 +18,13 @@ class  ConverterRunner {
                 if (curr < '0' || curr > '9')
                 {
                     cont = false;
-                    System.out.println("Please restart and input a valid base10 number!");
                 }
             }
-            if (cont)
+            if (!cont)
+            {
+                System.out.println("Please restart and input a valid base10 number!");
+            }
+            else if (cont)
             {
                 System.out.println("Enter the base you would like to convert to (1-64): ");
                 int base = Integer.parseInt(s.nextLine());
